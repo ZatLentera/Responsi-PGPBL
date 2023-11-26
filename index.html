@@ -80,16 +80,16 @@
 								<div class="row">
 									<div class="col-sm">
 										<div class="form-group">
-											<label for="Latitude"><strong>Lintang</strong></label>
-											<input type="text" class="form-control text-primary" id="Latitude" name="Latitude"
-												placeholder="Latitude" value="">
+											<label for="latitude"><strong>Lintang</strong></label>
+											<input type="text" class="form-control text-primary" id="latitude" name="latitude"
+												placeholder="latitude" value="">
 										</div>
 									</div>
 									<div class="col-sm">
 										<div class="form-group">
-											<label for="Longitude"><strong>Bujur</strong></label>
-											<input type="text" class="form-control text-primary" id="Longitude" name="Longitude"
-												placeholder="Longitude" value="">
+											<label for="longitude"><strong>Bujur</strong></label>
+											<input type="text" class="form-control text-primary" id="longitude" name="longitude"
+												placeholder="longitude" value="">
 										</div>
 									</div>
 									<div class="col-sm-3">
@@ -148,7 +148,7 @@
 		});
 		basemap.addTo(map);
 
-		/* Display zoom, Latitude, Longitude in URL */
+		/* Display zoom, latitude, longitude in URL */
 		let hash = new L.Hash(map);
 
 		/* Marker */
@@ -169,8 +169,8 @@
 			let latlng = e.target.getLatLng();
 
 			//Displays coordinates on the form
-			document.getElementById("Latitude").value = latlng.lat.toFixed(5);
-			document.getElementById("Longitude").value = latlng.lng.toFixed(5);
+			document.getElementById("latitude").value = latlng.lat.toFixed(5);
+			document.getElementById("longitude").value = latlng.lng.toFixed(5);
 
 			//Change the map center based on the marker location
 			map.flyTo(new L.LatLng(latlng.lat.toFixed(9), latlng.lng.toFixed(5)));
@@ -180,8 +180,8 @@
 			let mapcenter = map.getCenter();
 
 			//Displays coordinates on the form
-			document.getElementById("Latitude").value = mapcenter.lat.toFixed(5);
-			document.getElementById("Longitude").value = mapcenter.lng.toFixed(5);
+			document.getElementById("latitude").value = mapcenter.lat.toFixed(5);
+			document.getElementById("longitude").value = mapcenter.lng.toFixed(5);
 
 			//Create marker
 			marker.setLatLng([mapcenter.lat.toFixed(5), mapcenter.lng.toFixed(5)]).update();
@@ -190,8 +190,8 @@
 
 		function mapCenter(e) {
 			let mapcenter = map.getCenter();
-			let x = document.getElementById("Longitude").value;
-			let y = document.getElementById("Latitude").value;
+			let x = document.getElementById("longitude").value;
+			let y = document.getElementById("latitude").value;
 
 			map.flyTo(new L.LatLng(y, x), 18);
 		}
