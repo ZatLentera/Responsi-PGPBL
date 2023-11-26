@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ini Peta Interaktif</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<style>
+		html,
+		body,
+		#map {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="map"></div>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script>
+		// yogyakarta
+		var map = L.map('map').setView([-7.797068, 110.370529], 13);
+
+		// // basemap
+		// var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		// 	maxZoom: 18
+		// }).addTo(map);
+
+		/* Tile Basemap */
+		var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+		});
+
+		var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
+		});
+
+		var basemap3 = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+			attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		});
+
+		var basemap4 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+		});
+		basemap2.addTo(map);
+		
+		var baseMaps = {
+            "OpenStreetMap HOT": basemap1,
+            "Esri DeLorme": basemap2,
+            "CyclOSM": basemap3,
+            "Thunderforest SpinalMap": basemap4
+        };
+
+		L.control.layers(baseMaps).addTo(map);
+
+		// Export Button
+		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
+
+		var showExportButton = new L.Control({ position: "topright" });
+		showExportButton.onAdd = function (map) {
+			this._div = L.DomUtil.create('div');
+			this._div.innerHTML = showExport
+			return this._div;
+		};
+		showExportButton.addTo(map);
+
+		function loadlayer() {
+			var point = L.geoJson(null, {
+				onEachFeature: function (feature, layer) {
+					var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
+						"<p>" + feature.properties.deskripsi + "</p>";
+					layer.on({
+						click: function (e) {
+							point.bindPopup(popupContent);
+						},
+					});
+				},
+			});
+			$.getJSON("https://script.google.com/macros/s/AKfycbx9YXHvc0f9XDCDWHwLkzgbTbZYHdWXg_t9ccGXNCBSd68ndMp991rtcM18dV772dNM/exec", function (data) {
+				point.addData(data);
+				map.addLayer(point);
+				map.fitBounds(point.getBounds());
+			});
+		}
+
+		loadlayer();
+	</script>
+</body>
+
+</html>
