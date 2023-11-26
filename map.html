@@ -32,33 +32,6 @@
 			maxZoom: 18
 		}).addTo(map);
 
-		// /* Tile Basemap */
-		// var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-		// 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
-		// });
-
-		// var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}', {
-		// 	attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
-		// });
-
-		// var basemap3 = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-		// 	attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		// });
-
-		// var basemap4 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-		// 	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-		// });
-		// basemap2.addTo(map);
-		
-		// var baseMaps = {
-  //           "OpenStreetMap HOT": basemap1,
-  //           "Esri DeLorme": basemap2,
-  //           "CyclOSM": basemap3,
-  //           "Thunderforest SpinalMap": basemap4
-  //       };
-
-		// L.control.layers(baseMaps).addTo(map);
-
 		// Export Button
 		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
 
@@ -82,7 +55,7 @@
 					});
 				},
 			});
-			$.getJSON("https://script.google.com/macros/s/AKfycbx9YXHvc0f9XDCDWHwLkzgbTbZYHdWXg_t9ccGXNCBSd68ndMp991rtcM18dV772dNM/exec", function (data) {
+			$.getJSON("https://script.google.com/macros/s/AKfycbxQFvZtHOpyyThYa1u5RRxYEA-ilvf9LIAbY1xxQiydOpvdxqadmzxv4CZGGeBS0fuo/exec", function (data) {
 				point.addData(data);
 				map.addLayer(point);
 				map.fitBounds(point.getBounds());
@@ -92,5 +65,4 @@
 		loadlayer();
 	</script>
 </body>
-
 </html>
