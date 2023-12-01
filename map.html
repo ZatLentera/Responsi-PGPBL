@@ -7,6 +7,8 @@
 	<title>Ini Peta Interaktif</title>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 	<style>
 		html,
 		body,
@@ -21,6 +23,8 @@
 <body>
 	<div id="map"></div>
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script>
@@ -50,7 +54,8 @@
         					iconUrl: 'https://img.icons8.com/3d-fluency/94/marker.png', // Replace with your desired marker image
         					iconSize: [32, 32], // Change size according to your preference
       					});
-      					layer.setIcon(markerIcon);
+      					var marker = L.marker(layer.getLatLng(), { icon: markerIcon });
+    					marker.addTo(map);
 					var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
 						"<p>" + feature.properties.rating + "</p>" + "<p>" + feature.properties.kategori + "</p>" + "<p>" + feature.properties.deskripsi_alamat + "</p>";
 					layer.on({
