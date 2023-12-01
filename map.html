@@ -49,8 +49,7 @@
         					iconUrl: 'https://img.icons8.com/3d-fluency/94/marker.png', // Replace with your desired marker image
         					iconSize: [32, 32], // Change size according to your preference
       					});
-      					var marker = L.marker(layer.getLatLng(), { icon: markerIcon });
-    					marker.addTo(map);
+      					layer.setIcon(markerIcon);
 					var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
 						"<p>" + feature.properties.rating + "</p>" + "<p>" + feature.properties.kategori + "</p>" + "<p>" + feature.properties.deskripsi_alamat + "</p>";
 					layer.on({
