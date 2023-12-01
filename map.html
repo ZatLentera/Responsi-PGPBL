@@ -46,6 +46,11 @@
 		function loadlayer() {
 			var point = L.geoJson(null, {
 				onEachFeature: function (feature, layer) {
+					var markerIcon = L.icon({
+        					iconUrl: 'https://icons8.com/icon/XieTOK4V0QEI/location', // Replace with your desired marker image
+        					iconSize: [32, 32], // Change size according to your preference
+      					});
+      					layer.setIcon(markerIcon);
 					var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
 						"<p>" + feature.properties.rating + "</p>" + "<p>" + feature.properties.kategori + "</p>" + "<p>" + feature.properties.deskripsi_alamat + "</p>";
 					layer.on({
