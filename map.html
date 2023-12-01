@@ -29,12 +29,36 @@
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script>
 		// yogyakarta
-		var map = L.map('map').setView([-7.797068, 110.370529], 13);
+		// var map = L.map('map').setView([-7.797068, 110.370529], 13);
+		var map = L.map('map', {
+	            layers: [openStreetMap], // Default basemap
+	            center: [-7.797068, 110.370529],
+	            zoom: 13
+	        });
 
 		// basemap
-		var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 18
-		}).addTo(map);
+		// var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		// 	maxZoom: 18
+		// }).addTo(map);
+		        // Basemaps
+	        var openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	            maxZoom: 18
+	        });
+	
+	        var stamenToner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+	            attribution: 'Stamen Toner'
+	        });
+	
+	        var esriWorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	            attribution: 'Esri World Imagery'
+	        });
+
+		var baseMaps = {
+	            "OpenStreetMap": openStreetMap,
+	            "Stamen Toner": stamenToner,
+	            "Esri World Imagery": esriWorldImagery
+	        };
+		L.control.layers(baseMaps).addTo(map);
 
 		// Export Button
 		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
