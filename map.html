@@ -32,6 +32,14 @@
 		 	maxZoom: 18
 		}).addTo(map);
 
+		var stamenToner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+	            attribution: 'Stamen Toner'
+	        });
+	
+	        var esriWorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	            attribution: 'Esri World Imagery'
+	        });
+
 		// Export Button
 		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
 		var showExportButton = new L.Control({ position: "topright" });
@@ -41,6 +49,25 @@
 			return this._div;
 		};
 		showExportButton.addTo(map);
+
+		        // Basemap Buttons
+	        var basemapButtons = {
+	            "OpenStreetMap": openStreetMap,
+	            "Stamen Toner": stamenToner,
+	            "Esri World Imagery": esriWorldImagery
+	        };
+
+		for (var basemap in basemapButtons) {
+	            var button = document.createElement('button');
+	            button.innerHTML = basemap;
+	            button.addEventListener('click', function (e) {
+	                for (var key in basemapButtons) {
+	                    map.removeLayer(basemapButtons[key]);
+	                }
+	                map.addLayer(basemapButtons[e.target.innerHTML]);
+	            });
+	            document.getElementById('basemap-buttons').appendChild(button);
+	        }
 
 		function loadlayer() {
 			var point = L.geoJson(null, {
