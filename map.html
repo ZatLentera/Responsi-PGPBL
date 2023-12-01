@@ -30,11 +30,6 @@
 	<script>
 		// yogyakarta
 		// var map = L.map('map').setView([-7.797068, 110.370529], 13);
-		var map = L.map('map', {
-	            layers: [openStreetMap], // Default basemap
-	            center: [-7.797068, 110.370529],
-	            zoom: 13
-	        });
 
 		// basemap
 		// var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,6 +46,12 @@
 	
 	        var esriWorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	            attribution: 'Esri World Imagery'
+	        });
+
+		var map = L.map('map', {
+	            layers: [openStreetMap], // Default basemap
+	            center: [-7.797068, 110.370529],
+	            zoom: 13
 	        });
 
 		var baseMaps = {
