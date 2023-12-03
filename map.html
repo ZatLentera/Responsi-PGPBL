@@ -18,6 +18,13 @@
 			width: 100%;
 			margin: 0;
 		}
+		/* Style for the image in the popup */
+	        .popup-image {
+	            max-width: 100%; /* Set the maximum width for the image */
+	            max-height: 200px; /* Set the maximum height for the image */
+	            display: block;
+	            margin: 0 auto;
+	        }
 	</style>
 </head>
 
@@ -72,7 +79,7 @@
       					});
       					layer.setIcon(markerIcon);
 					var popupContent = 
-						"<img src='" + feature.properties.foto + "'>" + 
+						"<img class='popup-image' src='" + feature.properties.foto + "'>" + 
 						"<h4>" + feature.properties.nama + "</h4>" +
 						"<p>" + feature.properties.rating + "</p>";
 					layer.on({
@@ -92,7 +99,7 @@
 		var areaStyle = {
 			"color": "#008B8B",
 			"weight": 2,
-			"fillOpacity": 0.7,
+			"fillOpacity": 0.5,
 			"opacity": 0.45
 		};
 		var areaAlu = new L.GeoJSON.AJAX(["DIYBatas.geojson"], {
