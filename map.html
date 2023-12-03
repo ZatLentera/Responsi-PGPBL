@@ -29,11 +29,12 @@
 
 		// basemap
 		var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		 	maxZoom: 18
+			maxZoom: 18
 		}).addTo(map);
 
-		// Export Button reload
+		// Export Button
 		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
+
 		var showExportButton = new L.Control({ position: "topright" });
 		showExportButton.onAdd = function (map) {
 			this._div = L.DomUtil.create('div');
