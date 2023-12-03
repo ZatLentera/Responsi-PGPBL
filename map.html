@@ -66,13 +66,10 @@
         					iconSize: [32, 32], // Change size according to your preference
       					});
       					layer.setIcon(markerIcon);
-					var fotoData = feature.properties.foto;
-					var fotoUrl = fotoData ? 'data:image/png;base64,' + fotoData : ''; // Format data sebagai base64 image URL
 					var popupContent = 
 						"<h4>" + feature.properties.nama + "</h4>" +
 						"<p>" + feature.properties.rating + "</p>" + 
-						"<p>" + feature.properties.kategori + "</p>" + 
-						"<img src='" + fotoUrl + "' alt='Foto' width='100%'>";
+						"<p>" + feature.properties.kategori + "</p>" + ;
 					layer.on({
 						click: function (e) {
 							point.bindPopup(popupContent);
