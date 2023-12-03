@@ -66,10 +66,8 @@
         					iconSize: [32, 32], // Change size according to your preference
       					});
       					layer.setIcon(markerIcon);
-					var popupContent = 
-						"<h4>" + feature.properties.nama + "</h4>" +
-						"<p>" + feature.properties.rating + "</p>" + 
-						"<p>" + feature.properties.kategori + "</p>";
+					var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
+						"<p>" + feature.properties.rating + "</p>";
 					layer.on({
 						click: function (e) {
 							point.bindPopup(popupContent);
