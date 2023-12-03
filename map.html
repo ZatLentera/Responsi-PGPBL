@@ -47,10 +47,15 @@
 
 	        // Geolocation Control
 	        L.control.locate({
-	            position: "topleft",
+	            position: 'topleft',
 	            drawCircle: true,
 	            follow: true,
-	            setView: true
+	            setView: true,
+	            markerStyle: {
+	                icon: new L.Icon.Default(),
+	                opacity: 0.8,
+	                draggable: false,
+	            }
 	        }).addTo(map);
 
 		function loadlayer() {
