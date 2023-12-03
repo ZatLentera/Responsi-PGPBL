@@ -23,87 +23,85 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-	<script>
-		function setupMap() {
-			// // yogyakarta
-			// var map = L.map('map').setView([-7.797068, 110.370529], 13);
-	
-			// // basemap
-			// var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			//  	maxZoom: 18
-			// }).addTo(map);
-	
-			
-		        /* Tile Basemap */ 
-		        var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-		            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
-		        });
+<script>
+		// // yogyakarta
+		// var map = L.map('map').setView([-7.797068, 110.370529], 13);
+
+		// // basemap
+		// var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		//  	maxZoom: 18
+		// }).addTo(map);
+
 		
-		        var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}', {
-		            attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
-		        });
-		
-		        var basemap3 = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-		            attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		        });
-		
-		        var basemap4 =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-		            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-		        });
-		        var basemap = basemap1.addTo(map);	
+	        /* Tile Basemap */ 
+	        var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+	            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+	        });
 	
-			/* Control Layer */
-		        var baseMaps = {
-		            "OpenStreetMap HOT": basemap1,
-		            "Esri DeLorme": basemap2,
-		            "CyclOSM": basemap3,
-		            "Thunderforest SpinalMap": basemap4
-		        };
+	        var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}', {
+	            attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
+	        });
 	
-			 L.control.layers(baseMaps {collapsed: true}).addTo(map);
+	        var basemap3 = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+	            attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	        });
 	
-			// Export Button reload
-			var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
-			var showExportButton = new L.Control({ position: "topright" });
-			showExportButton.onAdd = function (map) {
-				this._div = L.DomUtil.create('div');
-				this._div.innerHTML = showExport
-				return this._div;
-			};
-			showExportButton.addTo(map);
-	
-			// Initial Map
-		        let tooltip = 'Drag the marker or move the map<br>to change the coordinates<br>of the location';
-		        let center = [-7.801389645, 110.364775452];
-		        let map = L.map('map').setView(center, 15); //lat, long, zoom
-		        map.scrollWheelZoom.disable(); //disable zoom with scroll
-	
-			function loadlayer() {
-				var point = L.geoJson(null, {
-					onEachFeature: function (feature, layer) {
-						var markerIcon = L.icon({
-	        					iconUrl: 'https://img.icons8.com/3d-fluency/94/marker.png', // Replace with your desired marker image
-	        					iconSize: [32, 32], // Change size according to your preference
-	      					});
-	      					layer.setIcon(markerIcon);
-						var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
-							"<p>" + feature.properties.rating + "</p>" + "<p>" + feature.properties.kategori + "</p>" + "<p>" + feature.properties.deskripsi_alamat + "</p>";
-						layer.on({
-							click: function (e) {
-								point.bindPopup(popupContent);
-							},
-						});
-					},
-				});
-				$.getJSON("https://script.google.com/macros/s/AKfycbx9YXHvc0f9XDCDWHwLkzgbTbZYHdWXg_t9ccGXNCBSd68ndMp991rtcM18dV772dNM/exec", function (data) {
-					point.addData(data);
-					map.addLayer(point);
-					map.fitBounds(point.getBounds());
-				});
-			}
-	
-			loadlayer();
-		setupMap();
+	        var basemap4 =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+	        });
+	        var basemap = basemap2.addTo(map);	
+
+		/* Control Layer */
+	        var baseMaps = {
+	            "OpenStreetMap HOT": basemap1,
+	            "Esri DeLorme": basemap2,
+	            "CyclOSM": basemap3,
+	            "Thunderforest SpinalMap": basemap4
+	        };
+
+		 L.control.layers(baseMaps {collapsed: true}).addTo(map);
+
+		// Export Button reload
+		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
+		var showExportButton = new L.Control({ position: "topright" });
+		showExportButton.onAdd = function (map) {
+			this._div = L.DomUtil.create('div');
+			this._div.innerHTML = showExport
+			return this._div;
+		};
+		showExportButton.addTo(map);
+
+		// Initial Map
+	        let tooltip = 'Drag the marker or move the map<br>to change the coordinates<br>of the location';
+	        let center = [-7.801389645, 110.364775452];
+	        let map = L.map('map').setView(center, 15); //lat, long, zoom
+	        map.scrollWheelZoom.disable(); //disable zoom with scroll
+
+		function loadlayer() {
+			var point = L.geoJson(null, {
+				onEachFeature: function (feature, layer) {
+					var markerIcon = L.icon({
+        					iconUrl: 'https://img.icons8.com/3d-fluency/94/marker.png', // Replace with your desired marker image
+        					iconSize: [32, 32], // Change size according to your preference
+      					});
+      					layer.setIcon(markerIcon);
+					var popupContent = "<h4>" + feature.properties.nama + "</h4>" +
+						"<p>" + feature.properties.rating + "</p>" + "<p>" + feature.properties.kategori + "</p>" + "<p>" + feature.properties.deskripsi_alamat + "</p>";
+					layer.on({
+						click: function (e) {
+							point.bindPopup(popupContent);
+						},
+					});
+				},
+			});
+			$.getJSON("https://script.google.com/macros/s/AKfycbx9YXHvc0f9XDCDWHwLkzgbTbZYHdWXg_t9ccGXNCBSd68ndMp991rtcM18dV772dNM/exec", function (data) {
+				point.addData(data);
+				map.addLayer(point);
+				map.fitBounds(point.getBounds());
+			});
+		}
+
+		loadlayer();
 	</script>
 </body>
 </html>
