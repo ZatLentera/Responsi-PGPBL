@@ -24,50 +24,52 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script>
-		// yogyakarta
-		var map = L.map('map').setView([-7.797068, 110.370529], 13);
+		// // yogyakarta
+		// var map = L.map('map').setView([-7.797068, 110.370529], 13);
 
-		// basemap
-		var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		 	maxZoom: 18
-		}).addTo(map);
+		// // basemap
+		// var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		//  	maxZoom: 18
+		// }).addTo(map);
 
-		var stamenToner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-	            attribution: 'Stamen Toner'
+		
+	        /* Tile Basemap */ 
+	        var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+	            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
 	        });
 	
-	        var esriWorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	            attribution: 'Esri World Imagery'
+	        var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}', {
+	            attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
 	        });
+	
+	        var basemap3 = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+	            attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	        });
+	
+	        var basemap4 =  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+	        });
+	        basemap2.addTo(map);	
 
-		// Export Button
-		var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
-		var showExportButton = new L.Control({ position: "topright" });
-		showExportButton.onAdd = function (map) {
-			this._div = L.DomUtil.create('div');
-			this._div.innerHTML = showExport
-			return this._div;
-		};
-		showExportButton.addTo(map);
-
-		        // Basemap Buttons
-	        var basemapButtons = {
-	            "OpenStreetMap": openStreetMap,
-	            "Stamen Toner": stamenToner,
-	            "Esri World Imagery": esriWorldImagery
+		/* Control Layer */
+	        var baseMaps = {
+	            "OpenStreetMap HOT": basemap1,
+	            "Esri DeLorme": basemap2,
+	            "CyclOSM": basemap3,
+	            "Thunderforest SpinalMap": basemap4
 	        };
 
-		for (var basemap in basemapButtons) {
-	            var button = document.createElement('button');
-	            button.innerHTML = basemap;
-	            button.addEventListener('click', function (e) {
-	                for (var key in basemapButtons) {
-	                    map.removeLayer(basemapButtons[key]);
-	                }
-	                map.addLayer(basemapButtons[e.target.innerHTML]);
-	            });
-	            document.getElementById('basemap-buttons').appendChild(button);
-	        }
+		 L.control.layers(baseMaps {collapsed: true}).addTo(map);
+
+		// // Export Button reload
+		// var showExport = '<button onclick="loadlayer()" title="Refresh map" class="">reload</button>';
+		// var showExportButton = new L.Control({ position: "topright" });
+		// showExportButton.onAdd = function (map) {
+		// 	this._div = L.DomUtil.create('div');
+		// 	this._div.innerHTML = showExport
+		// 	return this._div;
+		// };
+		// showExportButton.addTo(map);
 
 		function loadlayer() {
 			var point = L.geoJson(null, {
