@@ -7,8 +7,9 @@
 	<title>Ini Peta Interaktif</title>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<!-- locate 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" /> -->
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 		integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -45,7 +46,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-	<script src="https://unpkg.com/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js"></script>
+	<!-- locate <script src="https://unpkg.com/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js"></script> -->
 	<!-- Search JavaScript Library -->
 	<script src="https://calvinmetcalf.github.io/leaflet-ajax/dist/leaflet.ajax.js"></script>
 	<script src="https://calvinmetcalf.github.io/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
@@ -84,7 +85,7 @@
 		var stadiaalidade = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 			attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 		});
-		stadiaalidade.addTo(map);
+		OpenTopoMap.addTo(map);
 
 		/* Control Layer PILIHAN BASEMAP DAN SEKOLAH */
 		var baseMaps = {
@@ -93,11 +94,11 @@
 			"Esri World Imagery": Esri_WorldImagery,
 			"Stadia Dark Mode": stadiaalidade
 		};
-		var Sekolah = {
+		var ABC = {
 
 		};
 
-		L.control.layers(baseMaps, Sekolah, { collapsed: true }).addTo(map);
+		L.control.layers(baseMaps, ABC, { collapsed: true }).addTo(map);
 
 		// create fullscreen control
 		var fsControl = L.control.fullscreen();
